@@ -13,23 +13,25 @@ class Patient
   end
 
   def save
-    DB.exec("INSERT INTO patients (name, birthday, doctor_id, insurance_id) VALUES ('#{@name}', #{@specialty_id}, #{@insurance_id});")
+    DB.exec("INSERT INTO patients (name, birthday, doctor_id, insurance_id) VALUES ('#{@name}', '#{@birthday}', #{@doctor_id}, #{@insurance_id});")
   end
 
   def self.all
-    Patients = []
-    results = DB.exec("SELECT * FROM Patients;")
+
+    patients = []
+    results = DB.exec("SELECT * FROM patients;")
     results.each do |result|
-      specialty_id = result['specialty_id'].to_i
+      doctor_id = result['doctor_id'].to_i
       insurance_id = result['insurance_id'].to_i
-      Patients << Patient.new({:id => result['id'], :name => result['name'], :specialty_id => specialty_id, :insurance_id => insurance_id})
+      patients << Patient.new({:id => result['id'], :name => result['name'], :doctor_id => doctor_id, :insurance_id => insurance_id, :birthday => result['birthday']})
     end
-    Patients
+    patients
   end
 
-  def ==(another_Patient)
-    self.name == another_Patient.name &&
-    self.specialty_id == another_Patient.specialty_id &&
-    self.insurance_id == another_Patient.insurance_id
+  def ==(another_patient)
+    self.name == another_patient.name &&
+    self.doctor_id == another_patient.doctor_id &&
+    self.insurance_id == another_patient.insurance_id &&
+    self.birthday == another_patient.birthday
   end
 end
