@@ -3,13 +3,14 @@ require './lib/doctors'
 require './lib/patients'
 require './lib/specialties'
 require './lib/insurance'
+require './lib/doctor_menu'
 
 DB = PG.connect({:dbname => 'office_test'})
 
-DB.exec("DELETE FROM doctors *;")
-DB.exec("DELETE FROM patients *;")
-DB.exec("DELETE FROM specialities *;")
-DB.exec("DELETE FROM insurance *;")
+# DB.exec("DELETE FROM doctors *;")
+# DB.exec("DELETE FROM patients *;")
+# DB.exec("DELETE FROM specialities *;")
+# DB.exec("DELETE FROM insurance *;")
 
 def main_menu
 
@@ -45,54 +46,6 @@ def main_menu
 main_menu
 end
 
-def doctor_menu
-  puts "Enter 'r' to remove a doctor with extreme prejudice"
-  puts "Enter 'e' to edit doctor information"
-  puts "Enter 'a' to add a doctor"
-  puts "Enter 'l' to list all doctors"
-  puts "Enter 'm' to return to main menu"
-  puts "Enter 's' to search for specific doctor information"
 
-  user_choice = gets.chomp.downcase
-
-  case user_choice
-    when 'r'
-      remove_doctor
-    when 'e'
-      edit_doctor
-    when 'a'
-      add_doctor
-    when 'l'
-      list_doctor
-    when 'm'
-      main_menu
-    when 's'
-      search_doctor
-    else
-      puts 'Do you feel lucky, punk? Try again. (╬ ಠ益ಠ)'
-    end
-    doctor_menu
-end
-
-def remove_doctor
-
-end
-
-def edit_doctor
-end
-
-def add_doctor
-end
-
-def list_doctor
-end
-
-def search_doctor
-end
-
-def select_doctor
-  puts "Enter the doctor's name you are looking for"
-  Doctor.find_doctor(gets.chomp.upcase)[0]
-end
-
+main_menu
 
