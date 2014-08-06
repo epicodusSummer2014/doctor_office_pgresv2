@@ -66,4 +66,31 @@ class Doctor
     end
     doctors
   end
+
+  def self.find_doctor(name)
+    doctor = []
+    results = DB.exec("SELECT * FROM doctors WHERE name = '#{name}';")
+    results.each do |result|
+      specialty_id = result['specialty_id'].to_i
+      insurance_id = result['insurance_id'].to_i
+      doctor << Doctor.new({:id => result['id'], :name => result['name'], :specialty_id => specialty_id, :insurance_id => insurance_id})
+    end
+    doctor
+  end
+
+  def self.list_patients(doctor_id)
+    patients = []
+    results = DB.exec("SELECT * FROM patients WHERE doctor_id = #{doctor_id}")
+    results.each do |result|
+      doctor_id = result['doctor_id'].to_i
+      insurance_id = result['insurance_id'].to_i
+      patients << Patient.new({:id => result['id'], :name => result['name'], :doctor_id => doctor_id, :insurance_id => insurance_id, :birthday => result['birthday']})
+    end
+    patients
+  end
+
+  def count
+    results = DB.exec("SELECT count(*) FROM patients WHERE doctor_id = #{self.id};").first
+    results['count'].to_i
+  end
 end

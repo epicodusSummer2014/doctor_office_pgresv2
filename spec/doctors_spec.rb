@@ -77,4 +77,37 @@ describe 'Doctor' do
       expect(Doctor.insurance_search(2)).to eq [new_doctor, new_doctor2]
     end
   end
+
+  describe '.find_doctor' do
+    it 'returns a doctor object based on name searched' do
+      new_doctor = Doctor.new({:name => "MAC", :specialty_id => 1, :insurance_id => 2})
+      new_doctor.save
+      expect(Doctor.find_doctor('MAC')).to eq [new_doctor]
+    end
+  end
+
+  describe '.list_patients' do
+    it 'returns a list of patients for a specific doctor' do
+      new_doctor = Doctor.new({:name => "MAC", :specialty_id => 1, :insurance_id => 2})
+      new_doctor.save
+      new_patient = Patient.new({:name => "Dustin", :doctor_id => new_doctor.id, :insurance_id => 2, :birthday => '1675-01-02'})
+      new_patient.save
+      new_patient2 = Patient.new({:name => "Scott", :doctor_id => new_doctor.id, :insurance_id => 2, :birthday => '1952-03-04'})
+      new_patient2.save
+      expect(Doctor.list_patients(new_doctor.id)).to eq [new_patient, new_patient2]
+    end
+  end
+
+  #
+  describe 'count' do
+    it 'returns the number of patients with a specific doctor_id' do
+    new_doctor = Doctor.new({:name => "MAC", :specialty_id => 1, :insurance_id => 2})
+      new_doctor.save
+      new_patient = Patient.new({:name => "Dustin", :doctor_id => new_doctor.id, :insurance_id => 2, :birthday => '1675-01-02'})
+      new_patient.save
+      new_patient2 = Patient.new({:name => "Scott", :doctor_id => new_doctor.id, :insurance_id => 2, :birthday => '1952-03-04'})
+      new_patient2.save
+      expect(new_doctor.count).to eq 2
+    end
+  end
 end

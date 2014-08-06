@@ -43,4 +43,8 @@ class Patient
   def self.edit_insurance(patient_id, new_insurance_id)
     DB.exec("UPDATE patients SET insurance_id = #{new_insurance_id} WHERE id = #{patient_id};")
   end
+
+  def self.delete_patient(patient_id)
+    DB.exec("DELETE FROM patients WHERE id = #{patient_id};")
+  end
 end

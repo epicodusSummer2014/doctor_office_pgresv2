@@ -47,4 +47,13 @@ describe 'Patient' do
       expect(Patient.all[0].insurance_id).to eq 1
     end
   end
+
+  describe '.delete_patient' do
+    it 'deletes a patient' do
+      new_patient = Patient.new({:name => "Dustin", :doctor_id => 1, :insurance_id => 2, :birthday => '1675-01-02'})
+      new_patient.save
+      Patient.delete_patient(new_patient.id)
+      expect(Patient.all).to eq []
+    end
+  end
 end
