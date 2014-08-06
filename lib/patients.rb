@@ -47,4 +47,15 @@ class Patient
   def self.delete_patient(patient_id)
     DB.exec("DELETE FROM patients WHERE id = #{patient_id};")
   end
+
+  def self.find_patient(name)
+    patient = []
+    results = DB.exec("SELECT * FROM patients WHERE name = '#{name}';")
+    results.each do |result|
+      doctor_id = result['doctor_id'].to_i
+      insurance_id = result['insurance_id'].to_i
+      patient << Patient.new({:id => result['id'], :name => result['name'], :doctor_id => doctor_id, :insurance_id => insurance_id, :birthday => result['birthday']})
+    end
+    patient
+  end
 end

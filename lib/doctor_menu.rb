@@ -51,7 +51,7 @@ end
 def list_doctor
   puts "Here are the doctors currently still among the living: "
   Doctor.all.each do |doctor|
-    puts "Dr. #{doctor.name.capitalize}"
+    puts "#{doctor.id}) Dr. #{doctor.name.capitalize}"
     puts "  Specialty - #{doctor.specialty_id}" #Change to actual specialty
     puts "  Insurance accepted - #{doctor.insurance_id}"
     puts "  Patient count - #{doctor.count}"
