@@ -30,4 +30,31 @@ describe 'Doctor' do
       expect(new_doctor.==(new_doctor2)).to eq true
     end
   end
+
+  describe '.remove' do
+    it 'removes a doctor from the office' do
+      new_doctor = Doctor.new({:name => "Mac", :specialty_id => 1, :insurance_id => 2})
+      new_doctor.save
+      Doctor.remove(new_doctor.id)
+      expect(Doctor.all).to eq []
+    end
+  end
+
+  describe '.edit_specialty' do
+    it 'edits a doctor\'s specialty' do
+      new_doctor = Doctor.new({:name => "Mac", :specialty_id => 1, :insurance_id => 2})
+      new_doctor.save
+      Doctor.edit_specialty(new_doctor.id, 2)
+      expect(Doctor.all[0].specialty_id).to eq 2
+    end
+  end
+
+  describe '.edit_insurance' do
+    it 'edits a doctor\'s insurance' do
+      new_doctor = Doctor.new({:name => "Mac", :specialty_id => 1, :insurance_id => 2})
+      new_doctor.save
+      Doctor.edit_insurance(new_doctor.id, 1)
+      expect(Doctor.all[0].insurance_id).to eq 1
+    end
+  end
 end

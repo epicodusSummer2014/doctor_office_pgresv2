@@ -12,7 +12,8 @@ class Doctor
   end
 
   def save
-    DB.exec("INSERT INTO doctors (name, specialty_id, insurance_id) VALUES ('#{@name}', #{@specialty_id}, #{@insurance_id});")
+    results = DB.exec("INSERT INTO doctors (name, specialty_id, insurance_id) VALUES ('#{@name}', #{@specialty_id}, #{@insurance_id}) RETURNING id;")
+    @id = results.first['id'].to_i
   end
 
   def self.all
@@ -30,5 +31,17 @@ class Doctor
     self.name == another_doctor.name &&
     self.specialty_id == another_doctor.specialty_id &&
     self.insurance_id == another_doctor.insurance_id
+  end
+
+  def self.remove(doctor_id)
+    DB.exec("DELETE FROM doctors WHERE id = #{doctor_id}")
+  end
+
+  def self.edit_specialty(doctor_id, new_specialty_id)
+    DB.exec("UPDATE doctors SET specialty_id = #{new_specialty_id} WHERE id = #{doctor_id}")
+  end
+
+  def self.edit_insurance(doctor_id, new_insurance_id)
+    DB.exec("UPDATE doctors SET insurance_id = #{new_insurance_id} WHERE id = #{doctor_id}")
   end
 end
