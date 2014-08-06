@@ -5,6 +5,7 @@ require './lib/specialties'
 require './lib/insurance'
 require './lib/doctor_menu'
 require './lib/patient_menu'
+require './lib/insurance_menu'
 
 DB = PG.connect({:dbname => 'office_test'})
 

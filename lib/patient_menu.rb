@@ -60,6 +60,31 @@ def edit_patient
   end
 end
 
+def edit_doctor_id
+  patient = search_patient
+  puts "Enter the new doctor's name: "
+  doctor = Doctor.find_doctor(gets.chomp.upcase)[0]
+  Patient.edit_doctor_id(patient.id, doctor.id)
+  puts "#{patient.name.capitalize} will be poked and prodded exclusively by Dr. #{doctor.name.capitalize} now."
+end
+
+def patient_insurance_id
+  patient = search_patient
+  puts "Enter new insurance id:"
+  Patient.edit_insurance(patient.id, gets.chomp.to_i)
+  puts "Excellent. Now #{patient.name.capitalize} will constantly be screwed over by #{patient.id}."
+end
+
+def list_patient
+  puts "Here are the vict...I mean patients currently still among the living: "
+  Patient.all.each do |patient|
+    puts "#{patient.id}) #{patient.name.capitalize}"
+    puts "  Doctor - #{patient.doctor_id}" #Change to actual name
+    puts "  Insurance - #{patient.insurance_id}"
+    puts "  Birthday - #{patient.birthday}"
+  end
+end
+
 def search_patient
   puts "Enter patient's name you are looking for:"
   Patient.find_patient(gets.chomp.upcase)[0]
