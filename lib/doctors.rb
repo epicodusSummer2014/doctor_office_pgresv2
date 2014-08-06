@@ -34,14 +34,36 @@ class Doctor
   end
 
   def self.remove(doctor_id)
-    DB.exec("DELETE FROM doctors WHERE id = #{doctor_id}")
+    DB.exec("DELETE FROM doctors WHERE id = #{doctor_id};")
   end
 
   def self.edit_specialty(doctor_id, new_specialty_id)
-    DB.exec("UPDATE doctors SET specialty_id = #{new_specialty_id} WHERE id = #{doctor_id}")
+    DB.exec("UPDATE doctors SET specialty_id = #{new_specialty_id} WHERE id = #{doctor_id};")
   end
 
   def self.edit_insurance(doctor_id, new_insurance_id)
-    DB.exec("UPDATE doctors SET insurance_id = #{new_insurance_id} WHERE id = #{doctor_id}")
+    DB.exec("UPDATE doctors SET insurance_id = #{new_insurance_id} WHERE id = #{doctor_id};")
+  end
+
+  def self.specialty_search(specialty)
+    doctors = []
+    results = DB.exec("SELECT * FROM doctors WHERE specialty_id = #{specialty};")
+    results.each do |result|
+      specialty_id = result['specialty_id'].to_i
+      insurance_id = result['insurance_id'].to_i
+      doctors << Doctor.new({:id => result['id'], :name => result['name'], :specialty_id => specialty_id, :insurance_id => insurance_id})
+    end
+    doctors
+  end
+
+  def self.insurance_search(insurance)
+    doctors = []
+    results = DB.exec("SELECT * FROM doctors WHERE insurance_id = #{insurance};")
+    results.each do |result|
+      specialty_id = result['specialty_id'].to_i
+      insurance_id = result['insurance_id'].to_i
+      doctors << Doctor.new({:id => result['id'], :name => result['name'], :specialty_id => specialty_id, :insurance_id => insurance_id})
+    end
+    doctors
   end
 end

@@ -57,4 +57,24 @@ describe 'Doctor' do
       expect(Doctor.all[0].insurance_id).to eq 1
     end
   end
+
+  describe '.specialty_search' do
+    it 'lists all doctors with a certain specialty' do
+      new_doctor = Doctor.new({:name => "Mac", :specialty_id => 1, :insurance_id => 2})
+      new_doctor.save
+      new_doctor2 = Doctor.new({:name => "Dustin", :specialty_id => 1, :insurance_id => 2})
+      new_doctor2.save
+      expect(Doctor.specialty_search(1)).to eq [new_doctor, new_doctor2]
+    end
+  end
+
+  describe '.insurance_search' do
+    it 'lists all doctors with a certain insurance' do
+      new_doctor = Doctor.new({:name => "Mac", :specialty_id => 1, :insurance_id => 2})
+      new_doctor.save
+      new_doctor2 = Doctor.new({:name => "Dustin", :specialty_id => 1, :insurance_id => 2})
+      new_doctor2.save
+      expect(Doctor.insurance_search(2)).to eq [new_doctor, new_doctor2]
+    end
+  end
 end
