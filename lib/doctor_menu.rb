@@ -34,6 +34,31 @@ def remove_doctor
 end
 
 def edit_doctor
+  puts "Enter 's' to edit doctor's specialty"
+  puts "Enter 'i' to edit doctor's accepted insurance"
+  user_choice = gets.chomp.downcase
+  case(user_choice)
+    when 's'
+      doctor_specialty
+    when 'i'
+      doctor_insurance
+    else
+      puts "Ain't nobody got time fo' dat! Try again! （＞д＜） "
+    end
+end
+
+def doctor_specialty
+  doctor = select_doctor
+  puts "Please enter the doctor's new specialty id:"
+  Doctor.edit_specialty(doctor.id, gets.chomp.to_i)
+  puts "Whatchu doin' fool? Dr. #{doctor.name.capitalize} may not be the smarterst, but at least they know how to #{specialty_id}"
+end
+
+def doctor_insurance
+  doctor = select_doctor
+  puts "Please enter the doctor's new accepted insurance:"
+  Doctor.edit_insurance(doctor.id, gets.chomp.to_i)
+  puts "Dr. #{doctor.name.capitalize} is definitely getting kickbacks from #{doctor.insurance_id}"
 end
 
 def add_doctor

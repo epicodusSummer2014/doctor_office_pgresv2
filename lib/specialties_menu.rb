@@ -1,4 +1,4 @@
-def insurance_menu
+def specialties_menu
   puts "Enter 's' to add a specialty"
   puts "Enter 'h' to hightail it back to the main menu"
   puts "Enter 'h' to...well it's just for dramatic effect"
