@@ -11,7 +11,7 @@ describe 'Insurance' do
 
   describe '.all' do
     it 'starts off with no insurance' do
-      Insurance.all.should eq []
+      expect(Insurance.all).to eq []
     end
   end
 
