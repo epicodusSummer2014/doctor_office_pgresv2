@@ -1,4 +1,5 @@
 require 'pg'
+require './lib/appointments'
 require './lib/doctors'
 require './lib/patients'
 require './lib/specialties'
@@ -6,7 +7,8 @@ require './lib/insurance'
 require './lib/doctor_menu'
 require './lib/patient_menu'
 require './lib/insurance_menu'
-require './lib/specialities_menu'
+require './lib/specialties_menu'
+require './lib/appointments_menu'
 
 DB = PG.connect({:dbname => 'office_test'})
 
@@ -18,6 +20,7 @@ DB = PG.connect({:dbname => 'office_test'})
 def main_menu
 
   puts "Doctor's Office Manager"
+  puts "Enter 'a' to access the appointments menu."
   puts "Enter 's' to access specialities menu."
   puts "Enter 'p' to access patient menu."
   puts "Enter 'i' to access insurance menu."
@@ -28,8 +31,10 @@ def main_menu
   user_choice = gets.chomp.downcase
 
   case user_choice
+    when 'a'
+      appointment_menu
     when 's'
-      specialities_menu
+      specialties_menu
     when 'p'
       patient_menu
     when 'i'

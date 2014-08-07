@@ -5,6 +5,7 @@ require 'specialties'
 require 'insurance'
 require 'rspec'
 require 'appointments'
+require 'pry'
 
 DB = PG.connect({:dbname => 'office_test'})
 

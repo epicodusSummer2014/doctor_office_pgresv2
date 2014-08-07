@@ -33,4 +33,15 @@ describe 'Appointment' do
       expect(new_appt.==(new_appt2)).to eq true
     end
   end
+
+  describe '.search_date' do
+    it 'Returns sum of patient bills for a doctor in specified date range' do
+      new_appt = Appointment.new({:doctor => 'Guy', :patient => 'Mac', :date => '2022-09-23', :cost => 20})
+      new_appt.save
+      new_appt2 = Appointment.new({:doctor => 'Guy', :patient => 'Dustin', :date => '2022-08-23', :cost => 15})
+      new_appt2.save
+
+      expect(Appointment.search_date('Guy', '2022-06-01', '2022-10-31')). to eq 35
+    end
+  end
 end

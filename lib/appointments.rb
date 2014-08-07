@@ -23,6 +23,12 @@ class Appointment
   appointments
   end
 
+  def self.search_date(doctor, start_date, end_date)
+    results = DB.exec("SELECT SUM(cost) FROM appointments WHERE date BETWEEN '#{start_date}' and '#{end_date}' AND doctor = '#{doctor}';")
+    cost = results.first['sum'].to_i
+  end
+
+
   def ==(another_appointment)
     self.doctor == another_appointment.doctor && self.patient == another_appointment.patient && self.date == another_appointment.date && self.cost == another_appointment.cost
   end
